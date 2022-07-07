@@ -8,6 +8,7 @@ const authorInput = document.querySelector('#author');
 const pagesInput = document.querySelector('#pages');
 const modal = document.querySelector('.modal');
 const addButton = document.querySelector('.btn-add-book');
+const closeButton = document.querySelector('.btn-close-modal');
 
 
 function Book(title, author, pages, read) {
@@ -55,16 +56,21 @@ const submitButton = document.querySelector('.btn-submit');
 submitButton.addEventListener('click', () => {
     addBookToLibrary(titleInput.value, authorInput.value, pagesInput.value);
     form.reset();
+    closeModal();
 })
 
 addButton.addEventListener('click', () => {
     modal.style.display = 'block';
 })
 
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = 'none';
+document.addEventListener('click', (event) => {
+    if (event.target === modal || event.target === closeButton) {
+        closeModal();
     }
+})
+
+function closeModal() {
+    modal.style.display = 'none';
 }
 
 addBookToLibrary('Arctic', 'Turner', 22);
