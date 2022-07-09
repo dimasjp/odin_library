@@ -4,29 +4,30 @@ const form = document.querySelector('#book-form');
 const titleInput = document.querySelector('#title');
 const authorInput = document.querySelector('#author');
 const pagesInput = document.querySelector('#pages');
+const statusInput = document.querySelector('#status');
 const modal = document.querySelector('.modal');
 const addButton = document.querySelector('.btn-add-book');
 const closeButton = document.querySelector('.btn-close-modal');
 
 
-function Book(title, author, pages, read) {
+function Book(title, author, pages, status) {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.read = read;
+    this.status = status;
 }
 
 let myLibrary = [];
 
-function addBookToLibrary(title, author, pages) {
-    const newBook = new Book(title, author, pages);
+function addBookToLibrary(title, author, pages, status) {
+    const newBook = new Book(title, author, pages, status);
     myLibrary.push(newBook);
     displayBook();
 }
 
 const submitButton = document.querySelector('.btn-submit');
 submitButton.addEventListener('click', () => {
-    addBookToLibrary(titleInput.value, authorInput.value, pagesInput.value);
+    addBookToLibrary(titleInput.value, authorInput.value, pagesInput.value, statusInput.checked);
     form.reset();
     closeModal();
 })
@@ -50,37 +51,43 @@ function closeModal() {
 // Display form input into card
 function displayBook() {
     container.innerHTML = '';
+
     for (let i = 0; i < myLibrary.length; i++) {
         const bookCard = document.createElement('div');
         bookCard.classList.add('book-card');
         bookCard.setAttribute('data-index', i);
         container.appendChild(bookCard);
 
-        const bookTitle = document.createElement('p');
-        bookTitle.classList.add('card-title');
-        bookTitle.textContent = myLibrary[i].title;
-        bookCard.appendChild(bookTitle);
+        const cardTitle = document.createElement('p');
+        cardTitle.classList.add('card-title');
+        cardTitle.textContent = myLibrary[i].title;
+        bookCard.appendChild(cardTitle);
 
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('delete-btn');
-        deleteButton.textContent = "A";
-        bookCard.appendChild(deleteButton);
+        deleteButton.textContent = "X";
+        cardTitle.appendChild(deleteButton);
 
         const cardDivider = document.createElement('div');
         cardDivider.classList.add('divider');
         bookCard.appendChild(cardDivider);
 
-        const bookAuthor = document.createElement('p');
-        bookAuthor.textContent = "by " + myLibrary[i].author;
-        bookCard.appendChild(bookAuthor);
+        const cardAuthor = document.createElement('p');
+        cardAuthor.textContent = "by " + myLibrary[i].author;
+        bookCard.appendChild(cardAuthor);
 
-        const bookPages = document.createElement('p');
-        bookPages.textContent = myLibrary[i].pages + " pages";
-        bookCard.appendChild(bookPages);
+        const cardPages = document.createElement('p');
+        cardPages.textContent = myLibrary[i].pages + " pages";
+        bookCard.appendChild(cardPages);
 
-        const bookStatus = document.createElement('button');
-        bookStatus.textContent = "READ";
-        bookCard.appendChild(bookStatus);
+        const cardStatus = document.createElement('button');
+        cardStatus.classList.add('status-btn');
+        if (myLibrary[i].status == true) {
+            cardStatus.textContent = "Read";
+        } else {
+            cardStatus.textContent = "Not Read";
+        }
+        bookCard.appendChild(cardStatus);
     }
 }
 
@@ -97,9 +104,28 @@ function removeBook(event) {
     displayBook();
 }
 
-addBookToLibrary('Arctic', 'Turner', 22);
-addBookToLibrary('More', 'Tim Mark', 432);
-addBookToLibrary('Endsar', 'Bail Torn', 242);
+document.addEventListener('click', (event) => {
+    if (event.target.className === 'status-btn') {
+        changeBookStatus(event);
+    }
+})
+
+function changeBookStatus(event) {
+    const index = event.target.parentElement.getAttribute('data-index');
+    if (myLibrary[index].status === true) {
+      myLibrary[index].status = false;
+    } else {
+      myLibrary[index].status = true;
+    }
+    displayBook();
+}
+
+addBookToLibrary('Arctic', 'Turner', 22, true);
+addBookToLibrary('More', 'Tim Mark', 432, false);
+addBookToLibrary('Endsar', 'Bail Torn', 242, true);
+addBookToLibrary('Rome', 'Marcus Timmer', 224, false);
+addBookToLibrary('Rose', 'Vale Thorne', 42, false);
+addBookToLibrary('Desert', 'Turner', 23, true);
 
 
 
