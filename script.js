@@ -58,7 +58,7 @@ function displayBook() {
         bookCard.setAttribute('data-index', i);
         container.appendChild(bookCard);
 
-        const cardTitle = document.createElement('p');
+        const cardTitle = document.createElement('div');
         cardTitle.classList.add('card-title');
         cardTitle.textContent = myLibrary[i].title;
         bookCard.appendChild(cardTitle);
@@ -68,15 +68,12 @@ function displayBook() {
         deleteButton.textContent = "X";
         cardTitle.appendChild(deleteButton);
 
-        const cardDivider = document.createElement('div');
-        cardDivider.classList.add('divider');
-        bookCard.appendChild(cardDivider);
-
         const cardAuthor = document.createElement('p');
         cardAuthor.textContent = "by " + myLibrary[i].author;
         bookCard.appendChild(cardAuthor);
 
         const cardPages = document.createElement('p');
+        cardPages.classList.add('card-details');
         cardPages.textContent = myLibrary[i].pages + " pages";
         bookCard.appendChild(cardPages);
 
@@ -84,8 +81,10 @@ function displayBook() {
         cardStatus.classList.add('status-btn');
         if (myLibrary[i].status == true) {
             cardStatus.textContent = "Read";
+            cardStatus.style.backgroundColor = '#059669';
         } else {
             cardStatus.textContent = "Not Read";
+            cardStatus.style.backgroundColor = '#DC2626';
         }
         bookCard.appendChild(cardStatus);
     }
@@ -113,9 +112,9 @@ document.addEventListener('click', (event) => {
 function changeBookStatus(event) {
     const index = event.target.parentElement.getAttribute('data-index');
     if (myLibrary[index].status === true) {
-      myLibrary[index].status = false;
+        myLibrary[index].status = false;
     } else {
-      myLibrary[index].status = true;
+        myLibrary[index].status = true;
     }
     displayBook();
 }

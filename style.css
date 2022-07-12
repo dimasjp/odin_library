@@ -1,12 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Display:wght@300;400;500;700&display=swap');
+
+:root {
+    --slate-100: #F1F5F9;
+    --slate-200: #E2E8F0;
+    --slate-300: #CBD5E1;
+}
+
 body {
     height: 100vh;
-    background-color: #EEEEEE;
+    background-color: var(--slate-200);
     display: flex;
     flex-direction: column;
     align-items: center;
     word-wrap: break-word;
     padding: 0;
     margin: 0;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px;
 }
 
 .main {
@@ -32,42 +43,65 @@ body {
 .book-card {
     display: flex;
     flex-direction: column;
-    border: red 1px solid;
-    padding: 10px 5px;
+    border: var(--slate-300) 1px solid;
+    padding: 15px 20px;
+    background-color: var(--slate-100);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .book-card p {
-    margin: 0 0 10px 0;
+    margin: 0 0 10px;
 }
 
 .card-title {
     display: flex;
     justify-content: space-between;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.card-details {
+    font-size: 14px;
 }
 
 .delete-btn {
     width: 20px;
 }
 
-.divider {
-    background-color: red;
-    height: 1px;
-    width: 100%;
+.status-btn {
+    font-weight: 700;
+    color: var(--slate-100);
+    background: none;
+    border: none;
+    height: 30px;
+    width: 80px;
+    align-self: flex-end;
+    font-size: 14px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    cursor: pointer;
 }
 
 .modal {
     display: none;
     position: fixed;
     z-index: 1;
-    border: solid 1px red;
     width: 100vw;
     height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
-    border: solid 1px red;
+    padding: 20px;
     margin: 15% auto;
-    width: 400px;
+    background-color: var(--slate-100);
+    width: 300px;
+    border-radius: 5px;
+}
+
+.book-status {
+    display: flex;
+    gap: 5px;
 }
 
 form {
@@ -76,10 +110,16 @@ form {
     gap: 15px;
 }
 
-.form input {
+form input {
     display: flex;
     flex-direction: column;
-    gap: 4px;
     padding: 10px;
+    font-size: 15px;
+}
+
+form button {
+    font-weight: 700;
+    padding: 10px;
+    font-size: 15px;
 }
 
