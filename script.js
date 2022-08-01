@@ -10,11 +10,13 @@ const addButton = document.querySelector('.btn-add-book');
 const closeButton = document.querySelector('.btn-close-modal');
 
 
-function Book(title, author, pages, status) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.status = status;
+class Book {
+    constructor(title, author, pages, status) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.status = status;
+    }
 }
 
 let myLibrary = [];
